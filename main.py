@@ -4,7 +4,7 @@ import telebot
 from telebot import types
 import requests
 import detectlanguage
-
+from flask import Flask, request
 import logging
 from config import DETECT_LANG_API_KEY, TEXT_TO_SPEECH_API_URL,BOT_TOKEN
 
@@ -39,8 +39,13 @@ class TextToSpeechApi:
 
 logging.basicConfig(level=logging.INFO, filename='bot.log', filemode='w', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')    
 
+
+
 # Initialize the bot with your token
 bot = telebot.TeleBot(BOT_TOKEN)
+WEBHOOK_URL = 'https://telebots.alwaysdata.net/text2speech/webhook'
+CHAT_ID = 848696652
+app = Flask(__name__)
 
 
 def store_user_data(user_id, username):
@@ -160,12 +165,32 @@ def text_to_speech(text, lang):
         raise Exception(f"API Error: {response.status_code}")
 
 
+
+# Webhook endpoint to handle incoming updates
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    json_data = request.get_json()
+    bot.process_new_updates([telebot.types.Update.de_json(json_data)])
+    return '', 200
+
+
+# Homepage route
+@app.route('/')
+def home():
+    return "Welcome to the TeleBot Flask app!", 200
+
+# Set the webhook
+@app.route('/set_webhook', methods=['GET'])
+def set_webhook():
+    if bot.set_webhook(WEBHOOK_URL):
+        return "Webhook set successfully!", 200
+    else:
+        return "Failed to set webhook.", 400
+    
+
+   
+
+
+
 if __name__ == "__main__":
-        try:
-            print("Bot is running...")
-            bot.polling()
-        except KeyboardInterrupt:
-            logging.info("Bot stopped by the developer")
-        except Exception as e:
-            logging.error(f"Bot has encountered an error {e}")
-            time.sleep(3)
+    app.run(host='0.0.0.0', port=5000)
