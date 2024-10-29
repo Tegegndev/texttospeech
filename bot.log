@@ -1,2 +1,0 @@
-2024-10-29 07:35:38,157 - root - INFO - User Yegna_tv- 848696652 started the bot
-2024-10-29 07:59:01,062 - root - ERROR - Bot has encountered an error HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
