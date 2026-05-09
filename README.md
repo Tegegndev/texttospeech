@@ -33,6 +33,11 @@ This project provides a Telegram bot that converts user text messages into speec
 
 ## Run
 ```bash
+python -m flask --app __init__:app run --port 5000
+```
+
+Or run the current repository entrypoint directly:
+```bash
 python __init__.py
 ```
 
