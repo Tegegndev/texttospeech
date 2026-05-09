@@ -10,11 +10,11 @@ This project provides a Telegram bot that converts user text messages into speec
 - Supports webhook-based deployment with Flask
 
 ## Project Structure
-- `/home/runner/work/texttospeech/texttospeech/__init__.py` — main bot and Flask webhook app
-- `/home/runner/work/texttospeech/texttospeech/config.py` — configuration values
-- `/home/runner/work/texttospeech/texttospeech/requirements.txt` — Python dependencies
-- `/home/runner/work/texttospeech/texttospeech/voices/` — temporary generated audio output
-- `/home/runner/work/texttospeech/texttospeech/user_data.json` — stored user metadata
+- `__init__.py` — main bot and Flask webhook app
+- `config.py` — configuration values
+- `requirements.txt` — Python dependencies
+- `voices/` — temporary generated audio output
+- `user_data.json` — stored user metadata
 
 ## Requirements
 - Python 3.10+
